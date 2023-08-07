@@ -99,14 +99,14 @@ class App
   end
 
   def write_albums_file
-    if @music_albums.any?
-      albums_array = []
-      @music_albums.each do |object|
-        albums_array << [object[1], object[2]]
-      end
-      music_albums_json = JSON.generate(albums_array)
-      File.write('music_albums.json', music_albums_json)
+    return unless @music_albums.any?
+
+    albums_array = []
+    @music_albums.each do |object|
+      albums_array << [object[1], object[2]]
     end
+    music_albums_json = JSON.generate(albums_array)
+    File.write('music_albums.json', music_albums_json)
   end
 
   def load_files
