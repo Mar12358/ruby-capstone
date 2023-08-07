@@ -14,7 +14,8 @@ class Main
     puts '4. List all genres'
     puts '5. List all authors'
     puts '6. List all labels'
-    puts '7. Quit'
+    puts '8. Add a music album'
+    puts '10. Quit'
   end
 
   def entry_point
@@ -39,7 +40,9 @@ class Main
       @app.list_authors
     when 6
       @app.list_labels
-    when 7
+    when 8
+      @app.add_music_album
+    when 10
       puts 'Thank you for using the Library Management System. Goodbye!'
       exit
     else

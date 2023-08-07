@@ -1,3 +1,6 @@
+require_relative 'genre'
+require_relative 'music_album'
+
 class App
   attr_reader :books, :music_albums, :games, :genres, :labels, :authors
 
@@ -29,7 +32,7 @@ class App
       puts 'No music_albums found'
     else
       @music_albums.each_with_index do |music_album, index|
-        puts "#{index}) Title: #{music_album.label}, on spotify: #{music_album.on_spotify}"
+        puts "#{index}) Publish Date: #{music_album.publish_date}, on spotify: #{music_album.on_spotify}"
       end
     end
   end
@@ -72,5 +75,15 @@ class App
         puts "#{index}) First name: #{author.first_name}, Last name: #{author.last_name}"
       end
     end
+  end
+
+  def add_music_album
+    print 'Publish Date [DD/MM/YYYY]: '
+    publish_date = gets.chomp.to_s
+    print 'On spotify? [Y/N]: '
+    spotify = gets.chomp.to_s.capitalize
+    on_spotify = spotify == 'Y'
+    @music_albums << MusicAlbum.new(publish_date, on_spotify: on_spotify)
+    puts 'music album created succesfully'
   end
 end
