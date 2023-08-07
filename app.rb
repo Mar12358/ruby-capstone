@@ -108,7 +108,8 @@ class App
     books_file_data = books_file.read
     books_json_file = JSON.parse(books_file_data)
     books_json_file.each do |book|
-      @books << Book.new(book['publish_date'], publisher: book['publisher'], cover_state: book['cover_state'], archived: book['archived'])
+      @books << Book.new(book['publish_date'], publisher: book['publisher'], cover_state: book['cover_state'],
+                                               archived: book['archived'])
     end
   end
 
