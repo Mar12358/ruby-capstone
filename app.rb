@@ -32,7 +32,7 @@ class App
       puts 'No music_albums found'
     else
       @music_albums.each_with_index do |music_album, index|
-        puts "#{index}) Title: #{music_album.label}, on spotify: #{music_album.on_spotify}"
+        puts "#{index}) Publish Date: #{music_album.publish_date}, on spotify: #{music_album.on_spotify}"
       end
     end
   end
