@@ -86,4 +86,34 @@ class App
     @music_albums << MusicAlbum.new(publish_date, on_spotify: on_spotify)
     puts 'music album created succesfully'
   end
+
+  def load_albums_file
+    return unless File.exist?('music_albums.json')
+
+    albums_file = File.open('music_albums.json')
+    albums_file_data = albums_file.read
+    albums_json_file = JSON.parse(albums_file_data)
+    albums_json_file.each do |album|
+      @music_albums << MusicAlbum.new(album[0], album[1])
+    end
+  end
+
+  def write_albums_file
+    if @music_albums.any?
+      albums_array = []
+      @music_albums.each do |object|
+        albums_array << [object[1], object[2]]
+      end
+      music_albums_json = JSON.generate(albums_array)
+      File.write('music_albums.json', music_albums_json)
+    end
+  end
+
+  def load_files
+    load_albums_file
+  end
+
+  def write_files
+    write_albums_file
+  end
 end
