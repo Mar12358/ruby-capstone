@@ -10,4 +10,8 @@ class Book < Item
     @cover_state = cover_state
   end
 
+  def can_be_archieved?
+    super || @cover_state == 'bad'
+  end
+
 end
