@@ -1,3 +1,6 @@
+require_relative 'genre'
+require_relative 'music_album'
+
 class App
   attr_reader :books, :music_albums, :games, :genres, :labels, :authors
 
@@ -72,5 +75,15 @@ class App
         puts "#{index}) First name: #{author.first_name}, Last name: #{author.last_name}"
       end
     end
+  end
+
+  def add_music_album
+    print 'Publish Date [DD/MM/YYYY]: '
+    publish_date = gets.chomp.to_s
+    print 'On spotify? [Y/N]: '
+    spotify = gets.chomp.to_s.capitalize
+    on_spotify = spotify == 'Y'
+    @music_albums << MusicAlbum.new(publish_date, on_spotify: on_spotify)
+    puts 'music album created succesfully'
   end
 end
