@@ -1,5 +1,5 @@
-require_relative '../book.rb'
-require_relative '../item.rb'
+require_relative '../book'
+require_relative '../item'
 require 'date'
 
 describe Book do
