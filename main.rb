@@ -14,12 +14,13 @@ class Main
     puts '4. List all genres'
     puts '5. List all authors'
     puts '6. List all labels'
+    puts '7. Add a book'
     puts '8. Add a music album'
     puts '10. Quit'
   end
 
   def entry_point
-    app.load_files
+    @app.load_files
     loop do
       show_options
       app_choice = gets.chomp.to_i
@@ -41,10 +42,12 @@ class Main
       @app.list_authors
     when 6
       @app.list_labels
+    when 7
+      @app.add_book
     when 8
       @app.add_music_album
     when 10
-      app.write_files
+      @app.write_files
       puts 'Thank you for using the Library Management System. Goodbye!'
       exit
     else
