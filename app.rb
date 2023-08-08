@@ -95,7 +95,7 @@ class App
     albums_file_data = albums_file.read
     albums_json_file = JSON.parse(albums_file_data)
     albums_json_file.each do |album|
-      @music_albums << MusicAlbum.new(album["publish_date"], on_spotify: album["on_spotify"])
+      @music_albums << MusicAlbum.new(album['publish_date'], on_spotify: album['on_spotify'])
     end
   end
 
@@ -104,7 +104,7 @@ class App
 
     albums_array = []
     @music_albums.each do |object|
-      album_prop = { 
+      album_prop = {
         publish_date: object.publish_date,
         on_spotify: object.on_spotify
       }
