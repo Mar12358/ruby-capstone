@@ -1,5 +1,6 @@
 require 'json'
 require_relative 'genre'
+require_relative 'author'
 require_relative 'music_album'
 require_relative 'label'
 require_relative 'book'
@@ -19,6 +20,7 @@ class App
     @genres = []
     @labels = []
     @authors = []
+    @items = []
   end
 
   def list_books
@@ -52,7 +54,8 @@ class App
       puts 'No games found'
     else
       @games.each_with_index do |game, index|
-        puts "#{index}) Title:#{game.label}  multiplayer: #{game.multiplayer}, Last time played: #{game.last_played_at}"
+        puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
+             "Last Time Played: #{game.last_played_date}"
       end
     end
   end
@@ -100,8 +103,16 @@ class App
     music_album
   end
 
-  def add_games(game_name, publish_date, last_played_at, multiplayer)
-    game = Game.new(game_name, publish_date, multiplayer, last_played_at)
+  def add_game
+    print 'Game Name: '
+    gets.chomp.to_s
+    print 'Publish Date [DD/MM/YYYY]: '
+    publish_date = gets.chomp.to_s
+    print 'Last time played [DD/MM/YYYY]: '
+    last_played_date = gets.chomp.to_s
+    print 'Multiplayer [Y/N]: '
+    multiplayer = gets.chomp.to_s.capitalize
+    game = Game.new(publish_date, multiplayer, last_played_date)
     @games << game
     puts 'Game added successfully!'
   end
@@ -148,5 +159,27 @@ class App
   def write_files
     write_albums_file
     write_books_file
+  end
+
+  def add_author(first_name, last_name)
+    author = Author.new(first_name, last_name)
+    @authors << author
+    puts 'Author added successfully!'
+  end
+
+  def associate_author_with_item(item)
+    author = @authors[author_index]
+    author.add_item(item)
+    puts 'Item associated with author!'
+  end
+
+  def list_items
+    if @items.empty?
+      puts 'No items found.'
+    else
+      @items.each_with_index do |item, index|
+        puts "#{index}) Title: #{item.label}, Published on: #{item.publish_date}"
+      end
+    end
   end
 end

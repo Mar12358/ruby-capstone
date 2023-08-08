@@ -16,7 +16,7 @@ class Main
     puts '6. List all labels'
     puts '7. Add a book'
     puts '8. Add a music album'
-    puts '9. add new game'
+    puts '9. Add new game'
     puts '10. Quit'
   end
 
@@ -48,18 +48,7 @@ class Main
     when 8
       @app.add_music_album
     when 9
-      print 'Game Name: '
-      game_name = gets.chomp.to_s
-      print 'Publish Date [DD/MM/YYYY]: '
-      publish_date = gets.chomp.to_s
-      print 'Last time played [DD/MM/YYYY]: '
-      last_played_at = gets.chomp.to_s
-      print 'Multiplayer [Y/N]: '
-      multiplayer = gets.chomp.to_s.capitalize
-      multiplayer_game = false
-      multiplayer_game = true if multiplayer == 'Y'
-
-      @app.add_games(game_name, publish_date, last_played_at, multiplayer_game)
+      @app.add_game
     when 10
       @app.write_files
       puts 'Thank you for using the Library Management System. Goodbye!'
