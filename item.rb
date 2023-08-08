@@ -10,7 +10,7 @@ class Item
     @genre = nil
     @author = nil
     @label = nil
-    @publish_date = Date.parse(publish_date)
+    @publish_date = Date.parse(publish_date.to_s)
     @archived = archived
   end
 
