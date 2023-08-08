@@ -1,0 +1,8 @@
+[
+  { "name": "New", "color": "Red" },
+  { "name": "Gift", "color": "Blue" },
+  { "name": "Fiction", "color": "Green" },
+  { "name": "Romance", "color": "Pink" },
+  { "name": "Science Fiction", "color": "Purple" },
+  { "name": "History", "color": "Brown" }
+]

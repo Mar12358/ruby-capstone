@@ -17,6 +17,17 @@ module StoreMethods
     end
   end
 
+  def load_label_file
+    return unless File.exist?('label.json')
+
+    label_file = File.open('label.json')
+    label_file_data = label_file.read
+    label_json_file = JSON.parse(label_file_data)
+    label_json_file.each_with_index do |label, index|
+      @labels << Label.new(label["name"], label["color"], id: index)
+    end
+  end
+
   def load_books_file
     return unless File.exist?('books.json')
 
@@ -24,8 +35,7 @@ module StoreMethods
     books_file_data = books_file.read
     books_json_file = JSON.parse(books_file_data)
     books_json_file.each do |book|
-      @books << Book.new(book['publish_date'], publisher: book['publisher'], cover_state: book['cover_state'],
-                                               archived: book['archived'])
+      @books << create_book(book['label'], book['publisher'], book['publish_date'], book['cover_state'])
     end
   end
 
@@ -47,6 +57,7 @@ module StoreMethods
     books_array = []
     @books.each do |book|
       book_prop = {
+        label: book.label.id,
         publish_date: book.publish_date,
         publisher: book.publisher,
         cover_state: book.cover_state,
