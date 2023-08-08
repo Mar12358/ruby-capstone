@@ -1,5 +1,8 @@
+require 'json'
 require_relative 'genre'
 require_relative 'music_album'
+require_relative 'label'
+require_relative 'book'
 
 require_relative 'game'
 
@@ -22,8 +25,7 @@ class App
       puts 'No books found'
     else
       @books.each_with_index do |book, index|
-        puts "#{index}) Title:#{book.label}  Publisher: #{book.publisher},
-         Cover state: #{book.cover_state}, Date: #{book.publish_date}"
+        puts "#{index})  Publisher: #{book.publisher}, Cover state: #{book.cover_state}, Date: #{book.publish_date}"
       end
     end
   end
@@ -92,7 +94,30 @@ class App
     spotify = gets.chomp.to_s.capitalize
     on_spotify = spotify == 'Y'
     @music_albums << MusicAlbum.new(publish_date, on_spotify: on_spotify)
-    puts 'music album created succesfully'
+    puts 'Music album created succesfully'
+  end
+
+  def add_book
+    print 'Publish Date [DD/MM/YYYY]: '
+    publish_date = gets.chomp.to_s
+    print 'Publisher: '
+    book_publisher = gets.chomp.to_s.capitalize
+    print 'Cover State: '
+    cover_state = gets.chomp.to_s
+    @books << Book.new(publish_date, publisher: book_publisher, cover_state: cover_state)
+    puts 'Book created succesfully'
+  end
+
+  def load_books_file
+    return unless File.exist?('books.json')
+
+    books_file = File.open('books.json')
+    books_file_data = books_file.read
+    books_json_file = JSON.parse(books_file_data)
+    books_json_file.each do |book|
+      @books << Book.new(book['publish_date'], publisher: book['publisher'], cover_state: book['cover_state'],
+                                               archived: book['archived'])
+    end
   end
 
   def load_albums_file
@@ -104,6 +129,22 @@ class App
     albums_json_file.each do |album|
       @music_albums << MusicAlbum.new(album[0], album[1])
     end
+  end
+
+  def write_books_file
+    return unless @books.any?
+
+    books_array = []
+    @books.each do |book|
+      book_prop = {
+        publish_date: book.publish_date,
+        publisher: book.publisher,
+        cover_state: book.cover_state,
+        archived: book.archived
+      }
+      books_array << book_prop
+    end
+    File.write('books.json', JSON.pretty_generate(books_array))
   end
 
   def write_albums_file
@@ -118,10 +159,12 @@ class App
   end
 
   def load_files
+    load_books_file
     load_albums_file
   end
 
   def write_files
     write_albums_file
+    write_books_file
   end
 end
