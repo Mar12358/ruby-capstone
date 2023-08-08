@@ -6,19 +6,21 @@ Introducing the "Catalog of My Things" – a simple console app that helps you e
 
 # Table of Contents
 
-- [Built With](#built-with)
-  - [Tech Stack](#tech-stack)
-  - [Key Features](#key-features)
-- [Getting Started](#getting-started)
-  - [Setup](#setup)
-  - [Prerequisites](#prerequisites)
-  - [Usage](#usage)
-- [Authors](#authors)
-- [Future Features](#future-features)
-- [Contributing](#contributing)
-- [Show your support](#support)
-- [Acknowledgements](#acknowledgements)
-- [License](#license)
+- [ Catalog of my things ](#-catalog-of-my-things-)
+- [Table of Contents](#table-of-contents)
+    - [Tech Stack ](#tech-stack-)
+    - [Key Features ](#key-features-)
+  - [Getting Started ](#getting-started-)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Usage](#usage)
+    - [Run tests](#run-tests)
+  - [Authors ](#authors-)
+  - [Future Features ](#future-features-)
+  - [Contributing ](#contributing-)
+  - [Support ](#support-)
+  - [Acknowledgments ](#acknowledgments-)
+  - [License ](#license-)
 
 ### Tech Stack <a name="tech-stack"></a>
 
@@ -111,7 +113,14 @@ ruby main.rb
 
 You can now start creating new objects with the class constructors.
 
-> next features coming soon.
+### Run tests
+
+To run tests, run the following command:
+
+```
+rspec --force-color --format documentation
+```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
