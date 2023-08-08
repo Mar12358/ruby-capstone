@@ -55,7 +55,7 @@ class App
     else
       @games.each_with_index do |game, index|
         puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
-             "Last Time Played: #{game.last_played_date}"
+            "Last Time Played: #{game.last_played_date}"
       end
     end
   end
@@ -96,7 +96,7 @@ class App
     book
   end
 
-  def create_album(_album_label, _album_author, album_genre_id, publish_date, on_spotify)
+  def create_album(album_genre_id, publish_date, on_spotify)
     music_album = MusicAlbum.new(publish_date, on_spotify: on_spotify)
     genre = @genres.find { |element| element.id == album_genre_id }
     genre.add_item(music_album)
@@ -118,10 +118,6 @@ class App
   end
 
   def add_music_album
-    print 'Album Label: '
-    album_label = gets.chomp.to_s.capitalize
-    print 'Album Author: '
-    album_author = gets.chomp.to_s.capitalize
     list_genres
     print 'Select Album Genre by index: '
     album_genre_id = gets.chomp.to_i
@@ -131,7 +127,7 @@ class App
     spotify = gets.chomp.to_s.capitalize
     on_spotify = spotify == 'Y'
 
-    @music_albums << create_album(album_label, album_author, album_genre_id, publish_date, on_spotify)
+    @music_albums << create_album(album_genre_id, publish_date, on_spotify)
     puts 'Music album created succesfully'
   end
 

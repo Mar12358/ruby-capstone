@@ -46,8 +46,7 @@ module StoreMethods
     albums_file_data = albums_file.read
     albums_json_file = JSON.parse(albums_file_data)
     albums_json_file.each do |album|
-      @music_albums << create_album(album['label'], album['author'], album['genre'], album['publish_date'],
-                                    album['on_spotify'])
+      @music_albums << create_album(album['genre'], album['publish_date'], album['on_spotify'])
     end
   end
 
@@ -96,15 +95,13 @@ module StoreMethods
     albums_array = []
     @music_albums.each do |object|
       album_prop = {
-        label: object.label,
-        author: object.author,
         genre: object.genre.id,
         publish_date: object.publish_date,
         on_spotify: object.on_spotify
       }
       albums_array << album_prop
     end
-    music_albums_json = JSON.generate(albums_array)
+    music_albums_json = JSON.pretty_generate(albums_array)
     File.write('music_albums.json', music_albums_json)
   end
 
