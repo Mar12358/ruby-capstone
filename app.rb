@@ -23,8 +23,7 @@ class App
       puts 'No books found'
     else
       @books.each_with_index do |book, index|
-        puts "#{index}) Title:#{book.label}  Publisher: #{book.publisher},
-         Cover state: #{book.cover_state}, Date: #{book.publish_date}"
+        puts "#{index})  Publisher: #{book.publisher}, Cover state: #{book.cover_state}, Date: #{book.publish_date}"
       end
     end
   end
