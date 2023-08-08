@@ -49,14 +49,9 @@ class App
   end
 
   def list_games
-    if @games.empty?
-      puts
-      puts 'No games found'
-    else
-      @games.each_with_index do |game, index|
-        puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
-             "Last Time Played: #{game.last_played_date}"
-      end
+    @games.each_with_index do |game, index|
+      puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
+           "Last Time Played: #{game.last_played_date}"
     end
   end
 
@@ -154,11 +149,14 @@ class App
     load_genre_file
     load_books_file
     load_albums_file
+    load_author_file
+    load_game_file
   end
 
   def write_files
     write_albums_file
     write_books_file
+    write_game_file
   end
 
   def add_author(first_name, last_name)
