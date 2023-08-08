@@ -51,7 +51,8 @@ class App
       puts 'No games found'
     else
       @games.each_with_index do |game, index|
-        puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, Last Time Played: #{game.last_played_date}"
+        puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
+             "Last Time Played: #{game.last_played_date}"
       end
     end
   end

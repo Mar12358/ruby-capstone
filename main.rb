@@ -49,7 +49,7 @@ class Main
       @app.add_music_album
     when 9
       print 'Game Name: '
-      game_name = gets.chomp.to_s
+      gets.chomp.to_s
       print 'Publish Date [DD/MM/YYYY]: '
       publish_date = gets.chomp.to_s
       print 'Last time played [DD/MM/YYYY]: '
