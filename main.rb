@@ -17,9 +17,7 @@ class Main
     puts '7. Add a book'
     puts '8. Add a music album'
     puts '9. Add new game'
-    puts '10. Add an author'
-    puts '11. Associate author with item'
-    puts '12. Quit'
+    puts '10. Quit'
   end
 
   def entry_point
@@ -50,7 +48,7 @@ class Main
     when 8
       @app.add_music_album
     when 9
-      @app.add_games
+      @app.add_game
     when 10
       @app.write_files
       puts 'Thank you for using the Library Management System. Goodbye!'

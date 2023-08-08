@@ -3,7 +3,7 @@ require_relative 'genre'
 
 class Item
   attr_accessor :publish_date
-  attr_reader :genre, :author, :label, :archieved
+  attr_reader :genre, :author, :label, :archived
 
   def initialize(publish_date, archived: false)
     @id = Random.rand(1000..9999)
@@ -15,7 +15,7 @@ class Item
   end
 
   def move_to_archieve()
-    @archieved = true if can_be_archieved?
+    @archived = true if can_be_archieved?
   end
 
   def add_genre(genre)

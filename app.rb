@@ -97,14 +97,13 @@ class App
 
   def add_game
     print 'Game Name: '
-    game_name = gets.chomp.to_s
+    gets.chomp.to_s
     print 'Publish Date [DD/MM/YYYY]: '
     publish_date = gets.chomp.to_s
     print 'Last time played [DD/MM/YYYY]: '
     last_played_date = gets.chomp.to_s
     print 'Multiplayer [Y/N]: '
     multiplayer = gets.chomp.to_s.capitalize
-    multiplayer_game = multiplayer == 'Y'
     game = Game.new(publish_date, multiplayer, last_played_date)
     @games << game
     puts 'Game added successfully!'
