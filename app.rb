@@ -1,5 +1,6 @@
 require_relative 'genre'
 require_relative 'music_album'
+require 'json'
 
 class App
   attr_reader :books, :music_albums, :games, :genres, :labels, :authors
@@ -94,7 +95,7 @@ class App
     albums_file_data = albums_file.read
     albums_json_file = JSON.parse(albums_file_data)
     albums_json_file.each do |album|
-      @music_albums << MusicAlbum.new(album[0], album[1])
+      @music_albums << MusicAlbum.new(album["publish_date"], on_spotify: album["on_spotify"])
     end
   end
 
@@ -103,7 +104,11 @@ class App
 
     albums_array = []
     @music_albums.each do |object|
-      albums_array << [object[1], object[2]]
+      album_prop = { 
+        publish_date: object.publish_date,
+        on_spotify: object.on_spotify
+      }
+      albums_array << album_prop
     end
     music_albums_json = JSON.generate(albums_array)
     File.write('music_albums.json', music_albums_json)
