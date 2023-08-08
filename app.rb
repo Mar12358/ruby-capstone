@@ -33,7 +33,9 @@ class App
       puts 'No music_albums found'
     else
       @music_albums.each_with_index do |music_album, index|
-        puts "#{index}) Publish Date: #{music_album.publish_date}, on spotify: #{music_album.on_spotify}"
+        output = "#{index}) Genre: #{music_album.genre.name}, Publish Date: #{music_album.publish_date}, " \
+                 "on spotify: #{music_album.on_spotify}"
+        puts output
       end
     end
   end
@@ -54,7 +56,7 @@ class App
       puts
       puts 'No genres found'
     else
-      @genres.each_with_index { |genre, index| puts "#{index}) Name:#{genre.name}" }
+      @genres.each { |genre| puts "#{genre.id}) #{genre.name}" }
     end
   end
 
@@ -78,14 +80,29 @@ class App
     end
   end
 
+  def create_album(_album_label, _album_author, album_genre_id, publish_date, on_spotify)
+    music_album = MusicAlbum.new(publish_date, on_spotify: on_spotify)
+    genre = @genres.find { |element| element.id == album_genre_id }
+    genre.add_item(music_album)
+    music_album
+  end
+
   def add_music_album
+    print 'Album Label: '
+    album_label = gets.chomp.to_s.capitalize
+    print 'Album Author: '
+    album_author = gets.chomp.to_s.capitalize
+    list_genres
+    print 'Select Album Genre by index: '
+    album_genre_id = gets.chomp.to_i
     print 'Publish Date [DD/MM/YYYY]: '
     publish_date = gets.chomp.to_s
     print 'On spotify? [Y/N]: '
     spotify = gets.chomp.to_s.capitalize
     on_spotify = spotify == 'Y'
-    @music_albums << MusicAlbum.new(publish_date, on_spotify: on_spotify)
-    puts 'music album created succesfully'
+
+    @music_albums << create_album(album_label, album_author, album_genre_id, publish_date, on_spotify)
+    puts 'Music album created succesfully'
   end
 
   def load_albums_file
@@ -95,7 +112,19 @@ class App
     albums_file_data = albums_file.read
     albums_json_file = JSON.parse(albums_file_data)
     albums_json_file.each do |album|
-      @music_albums << MusicAlbum.new(album['publish_date'], on_spotify: album['on_spotify'])
+      @music_albums << create_album(album['label'], album['author'], album['genre'], album['publish_date'],
+                                    album['on_spotify'])
+    end
+  end
+
+  def load_genre_file
+    return unless File.exist?('genre.json')
+
+    genre_file = File.open('genre.json')
+    genre_file_data = genre_file.read
+    genre_json_file = JSON.parse(genre_file_data)
+    genre_json_file.each_with_index do |genre, index|
+      @genres << Genre.new(genre, id: index)
     end
   end
 
@@ -105,6 +134,9 @@ class App
     albums_array = []
     @music_albums.each do |object|
       album_prop = {
+        label: object.label,
+        author: object.author,
+        genre: object.genre.id,
         publish_date: object.publish_date,
         on_spotify: object.on_spotify
       }
@@ -115,6 +147,7 @@ class App
   end
 
   def load_files
+    load_genre_file
     load_albums_file
   end
 
