@@ -55,7 +55,7 @@ class App
     else
       @games.each_with_index do |game, index|
         puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
-            "Last Time Played: #{game.last_played_date}"
+             "Last Time Played: #{game.last_played_date}"
       end
     end
   end
