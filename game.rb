@@ -10,7 +10,7 @@ class Game < Item
     @last_played_date = Date.parse(last_played_date)
   end
 
-  def can_be_archived?
+  def can_be_archieved?
     current_date = Date.today
     super && (current_date.year - @last_played_date.year) > 2
   end
