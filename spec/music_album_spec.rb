@@ -25,8 +25,6 @@ describe MusicAlbum do
       expect(@music_album.can_be_archieved?).to be_falsey
       expect(@music_album2.can_be_archieved?).to be_falsey
       expect(@music_album_archivable.can_be_archieved?).to be_truthy
-      
-
     end
   end
 end
