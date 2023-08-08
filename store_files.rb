@@ -51,6 +51,28 @@ module StoreMethods
     end
   end
 
+  def load_game_file
+    return unless File.exist?('game.json')
+
+    game_file = File.open('game.json')
+    game_file_data = game_file.read
+    game_json_file = JSON.parse(game_file_data)
+    game_json_file.each do |game|
+      @games << Game.new(game['publish_date'], game['multiplayer'], game['last_played_date'])
+    end
+  end
+
+  def load_author_file
+    return unless File.exist?('author.json')
+
+    author_file = File.open('author.json')
+    author_file_data = author_file.read
+    author_json_file = JSON.parse(author_file_data)
+    author_json_file.each_with_index do |author, _index|
+      @authors << Author.new(author['first_name'], author['last_name'], id: author['id'])
+    end
+  end
+
   def write_books_file
     return unless @books.any?
 
@@ -84,5 +106,21 @@ module StoreMethods
     end
     music_albums_json = JSON.generate(albums_array)
     File.write('music_albums.json', music_albums_json)
+  end
+
+  def write_game_file
+    return unless @games.any?
+
+    game_array = []
+    @games.each do |game|
+      game_prop = {
+        publish_date: game.publish_date,
+        multiplayer: game.multiplayer,
+        last_played_date: game.last_played_date,
+        archived: game.archived
+      }
+      game_array << game_prop
+    end
+    File.write('game.json', JSON.pretty_generate(game_array))
   end
 end
