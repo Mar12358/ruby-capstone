@@ -19,7 +19,7 @@ class Main
   end
 
   def entry_point
-    app.load_files
+    @app.load_files
     loop do
       show_options
       app_choice = gets.chomp.to_i
@@ -44,7 +44,7 @@ class Main
     when 8
       @app.add_music_album
     when 10
-      app.write_files
+      @app.write_files
       puts 'Thank you for using the Library Management System. Goodbye!'
       exit
     else
