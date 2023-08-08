@@ -51,7 +51,7 @@ class App
       puts 'No games found'
     else
       @games.each_with_index do |game, index|
-        puts "#{index}) Title:#{game.label}  multiplayer: #{game.multiplayer}, Last time played: #{game.last_played_at}"
+        puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, Last Time Played: #{game.last_played_date}"
       end
     end
   end
@@ -92,8 +92,8 @@ class App
     music_album
   end
 
-  def add_games(game_name, publish_date, last_played_at, multiplayer)
-    game = Game.new(game_name, publish_date, multiplayer, last_played_at)
+  def add_games(publish_date, last_played_date, multiplayer)
+    game = Game.new(publish_date, multiplayer, last_played_date)
     @games << game
     puts 'Game added successfully!'
   end

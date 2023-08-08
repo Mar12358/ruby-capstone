@@ -53,13 +53,13 @@ class Main
       print 'Publish Date [DD/MM/YYYY]: '
       publish_date = gets.chomp.to_s
       print 'Last time played [DD/MM/YYYY]: '
-      last_played_at = gets.chomp.to_s
+      last_played_date = gets.chomp.to_s
       print 'Multiplayer [Y/N]: '
       multiplayer = gets.chomp.to_s.capitalize
       multiplayer_game = false
       multiplayer_game = true if multiplayer == 'Y'
 
-      @app.add_games(game_name, publish_date, last_played_at, multiplayer_game)
+      @app.add_games(publish_date, last_played_date, multiplayer_game)
     when 10
       @app.write_files
       puts 'Thank you for using the Library Management System. Goodbye!'
