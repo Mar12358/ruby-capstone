@@ -34,7 +34,7 @@ class Item
 
   private
 
-  def can_be_archieved?
+  def can_be_archived?
     publish_date = Date.parse(@publish_date.to_s)
     (Date.today.year - publish_date.year) > 10
   end

@@ -1,5 +1,6 @@
 require_relative 'genre'
 require_relative 'music_album'
+require_relative 'author'
 
 require_relative 'game'
 
@@ -14,6 +15,7 @@ class App
     @genres = []
     @labels = []
     @authors = []
+    @items = []
   end
 
   def list_books
@@ -45,7 +47,8 @@ class App
       puts 'No games found'
     else
       @games.each_with_index do |game, index|
-        puts "#{index}) Title:#{game.label}  multiplayer: #{game.multiplayer}, Last time played: #{game.last_played_at}"
+        puts "#{index}) Title:#{game.label}  multiplayer: #{game.multiplayer},
+         Last time played: #{game.last_played_date}"
       end
     end
   end
@@ -79,8 +82,8 @@ class App
     end
   end
 
-  def add_games(game_name, publish_date, last_played_at, multiplayer)
-    game = Game.new(game_name, publish_date, multiplayer, last_played_at)
+  def add_games(game_name, publish_date, _last_played_at, multiplayer)
+    game = Game.new(game_name, publish_date, multiplayer, last_played_date)
     @games << game
     puts 'Game added successfully!'
   end
@@ -123,5 +126,34 @@ class App
 
   def write_files
     write_albums_file
+  end
+
+  def add_author(first_name, last_name)
+    author = Author.new(first_name, last_name)
+    @authors << author
+    puts 'Author added successfully!'
+  end
+
+  def associate_author_with_item(author_index, item_index)
+    if author_index.negative? || author_index >= @authors.length ||
+       item_index.negative? || item_index >= @items.length
+      puts 'Invalid author or item index.'
+      return
+    end
+
+    author = @authors[author_index]
+    item = @items[item_index]
+    author.add_item(item)
+    puts 'Item associated with author!'
+  end
+
+  def list_items
+    if @items.empty?
+      puts 'No items found.'
+    else
+      @items.each_with_index do |item, index|
+        puts "#{index}) Title: #{item.label}, Published on: #{item.publish_date}"
+      end
+    end
   end
 end
