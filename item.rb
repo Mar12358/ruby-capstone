@@ -1,4 +1,5 @@
 require 'date'
+require_relative 'genre'
 
 class Item
   attr_accessor :publish_date
@@ -9,8 +10,8 @@ class Item
     @genre = nil
     @author = nil
     @label = nil
-    @publish_date = Date.parse(publish_date)
-    @archieved = archieved
+    @publish_date = Date.parse(publish_date.to_s)
+    @archived = archived
   end
 
   def move_to_archieve()

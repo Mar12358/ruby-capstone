@@ -92,14 +92,14 @@ class App
     @games << game
     puts 'Game added successfully!'
   end
-
+  
   def create_album(_album_label, _album_author, album_genre_id, publish_date, on_spotify)
     music_album = MusicAlbum.new(publish_date, on_spotify: on_spotify)
     genre = @genres.find { |element| element.id == album_genre_id }
     genre.add_item(music_album)
     music_album
   end
-  
+
   def add_music_album
     print 'Album Label: '
     album_label = gets.chomp.to_s.capitalize
