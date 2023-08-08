@@ -24,7 +24,7 @@ module StoreMethods
     label_file_data = label_file.read
     label_json_file = JSON.parse(label_file_data)
     label_json_file.each_with_index do |label, index|
-      @labels << Label.new(label["name"], label["color"], id: index)
+      @labels << Label.new(label['name'], label['color'], id: index)
     end
   end
 
