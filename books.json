@@ -1,14 +1,9 @@
 [
   {
-    "publish_date": "1011-04-10",
-    "publisher": "Asd",
-    "cover_state": "asd",
-    "archived": false
-  },
-  {
-    "publish_date": "2022-05-10",
-    "publisher": "Asd",
-    "cover_state": "fsa",
+    "label": 1,
+    "publish_date": "2020-12-12",
+    "publisher": "Nacho",
+    "cover_state": "Stat",
     "archived": false
   }
 ]

@@ -29,7 +29,8 @@ class App
       puts 'No books found'
     else
       @books.each_with_index do |book, index|
-        puts "#{index})  Publisher: #{book.publisher}, Cover state: #{book.cover_state}, Date: #{book.publish_date}"
+        puts "#{index}) Label: #{book.label.title}, Publisher: #{book.publisher}, " \
+             "Cover state: #{book.cover_state}, Date: #{book.publish_date}"
       end
     end
   end
@@ -88,6 +89,13 @@ class App
     end
   end
 
+  def create_book(book_label_id, book_publisher, publish_date, cover_state)
+    book = Book.new(publish_date, publisher: book_publisher, cover_state: cover_state)
+    label = @labels.find { |element| element.id == book_label_id }
+    label.add_item(book)
+    book
+  end
+
   def create_album(_album_label, _album_author, album_genre_id, publish_date, on_spotify)
     music_album = MusicAlbum.new(publish_date, on_spotify: on_spotify)
     genre = @genres.find { |element| element.id == album_genre_id }
@@ -128,17 +136,21 @@ class App
   end
 
   def add_book
+    list_labels
+    print 'Select the book label by index: '
+    book_label_id = gets.chomp.to_i
     print 'Publish Date [DD/MM/YYYY]: '
     publish_date = gets.chomp.to_s
     print 'Publisher: '
     book_publisher = gets.chomp.to_s.capitalize
     print 'Cover State: '
     cover_state = gets.chomp.to_s
-    @books << Book.new(publish_date, publisher: book_publisher, cover_state: cover_state)
+    @books << create_book(book_label_id, book_publisher, publish_date, cover_state)
     puts 'Book created succesfully'
   end
 
   def load_files
+    load_label_file
     load_genre_file
     load_books_file
     load_albums_file
