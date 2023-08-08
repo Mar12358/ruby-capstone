@@ -1,6 +1,8 @@
 require_relative 'genre'
 require_relative 'music_album'
 
+require_relative 'game'
+
 class App
   attr_reader :books, :music_albums, :games, :genres, :labels, :authors
 
@@ -75,6 +77,12 @@ class App
         puts "#{index}) First name: #{author.first_name}, Last name: #{author.last_name}"
       end
     end
+  end
+
+  def add_games(game_name, publish_date, last_played_at, multiplayer)
+    game = Game.new(game_name, publish_date, multiplayer, last_played_at)
+    @games << game
+    puts 'Game added successfully!'
   end
 
   def add_music_album
