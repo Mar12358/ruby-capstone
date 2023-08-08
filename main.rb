@@ -50,59 +50,14 @@ class Main
     when 8
       @app.add_music_album
     when 9
-      add_game
+      @app.add_games
     when 10
-      add_author
-    when 11
-      associate_author_with_item
-    when 12
-      exit_application
       @app.write_files
       puts 'Thank you for using the Library Management System. Goodbye!'
       exit
     else
       puts 'Invalid option. Please try again.'
     end
-  end
-
-  private
-
-  def add_game
-    print 'Game Name: '
-    game_name = gets.chomp.to_s
-    print 'Publish Date [DD/MM/YYYY]: '
-    publish_date = gets.chomp.to_s
-    print 'Last time played [DD/MM/YYYY]: '
-    last_played_date = gets.chomp.to_s
-    print 'Multiplayer [Y/N]: '
-    multiplayer = gets.chomp.to_s.capitalize
-    multiplayer_game = multiplayer == 'Y'
-
-    @app.add_games(game_name, publish_date, last_played_date, multiplayer_game)
-  end
-
-  def add_author
-    print 'Author First Name: '
-    author_first_name = gets.chomp
-    print 'Author Last Name: '
-    author_last_name = gets.chomp
-    @app.add_author(author_first_name, author_last_name)
-  end
-
-  def associate_author_with_item
-    @app.list_authors
-    print 'Author Index: '
-    author_index = gets.chomp.to_i
-    @app.list_items
-    print 'Item Index: '
-    item_index = gets.chomp.to_i
-    @app.associate_author_with_item(author_index, item_index)
-  end
-
-  def exit_application
-    @app.write_files
-    puts 'Thank you for using the Library Management System. Goodbye!'
-    exit
   end
 end
 

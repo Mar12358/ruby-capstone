@@ -1,6 +1,7 @@
 require 'json'
 require_relative 'genre'
 require_relative 'author'
+require_relative 'music_album'
 require_relative 'label'
 require_relative 'book'
 require_relative 'game'
@@ -52,8 +53,8 @@ class App
       puts 'No games found'
     else
       @games.each_with_index do |game, index|
-        puts "#{index}) Title:#{game.label}  multiplayer: #{game.multiplayer},
-         Last time played: #{game.last_played_date}"
+        puts "#{index}) Publish Date: #{game.publish_date}  Multiplayer: #{game.multiplayer}, " \
+             "Last Time Played: #{game.last_played_date}"
       end
     end
   end
@@ -87,17 +88,26 @@ class App
     end
   end
 
-  def add_games(game_name, publish_date, _last_played_at, multiplayer)
-    game = Game.new(game_name, publish_date, multiplayer, last_played_date)
-    @games << game
-    puts 'Game added successfully!'
-  end
-
   def create_album(_album_label, _album_author, album_genre_id, publish_date, on_spotify)
     music_album = MusicAlbum.new(publish_date, on_spotify: on_spotify)
     genre = @genres.find { |element| element.id == album_genre_id }
     genre.add_item(music_album)
     music_album
+  end
+
+  def add_game
+    print 'Game Name: '
+    game_name = gets.chomp.to_s
+    print 'Publish Date [DD/MM/YYYY]: '
+    publish_date = gets.chomp.to_s
+    print 'Last time played [DD/MM/YYYY]: '
+    last_played_date = gets.chomp.to_s
+    print 'Multiplayer [Y/N]: '
+    multiplayer = gets.chomp.to_s.capitalize
+    multiplayer_game = multiplayer == 'Y'
+    game = Game.new(publish_date, multiplayer, last_played_date)
+    @games << game
+    puts 'Game added successfully!'
   end
 
   def add_music_album
@@ -146,15 +156,8 @@ class App
     puts 'Author added successfully!'
   end
 
-  def associate_author_with_item(author_index, item_index)
-    if author_index.negative? || author_index >= @authors.length ||
-       item_index.negative? || item_index >= @items.length
-      puts 'Invalid author or item index.'
-      return
-    end
-
+  def associate_author_with_item(item)
     author = @authors[author_index]
-    item = @items[item_index]
     author.add_item(item)
     puts 'Item associated with author!'
   end
