@@ -11,4 +11,3 @@ VALUES (2, 'Comedy');
 
 INSERT INTO genre (ID, NAME)
 VALUES (3, 'Thriller');
-
