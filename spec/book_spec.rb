@@ -10,7 +10,7 @@ describe Book do
     expect(book.publish_date).to be_an_instance_of(Date)
     expect(book.cover_state).to eq('bad')
   end
-  it 'can be archived if the cover_state is equal to bad' do
+  it 'can be archieved if the cover_state is equal to bad' do
     expect(book.can_be_archieved?).to eq(true)
   end
 end
